@@ -1,7 +1,7 @@
 <?php
 define('APP_START', microtime(true));
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__.'/../vendor/autoload.php';
 
 use Facebook\FacebookRedirectLoginHelper;
 use Facebook\FacebookSession;
@@ -27,7 +27,7 @@ ExceptionHandler::register(false);
 
 $app = new Application;
 
-$app->register(new ConfigServiceProvider(__DIR__.'/settings.toml', ['base_dir' => __DIR__]));
+$app->register(new ConfigServiceProvider(__DIR__.'/../settings.toml', ['base_dir' => realpath(__DIR__.'/..')]));
 
 $app->register(new MonologServiceProvider, [
     'monolog.logfile' => $app['log']['file'],
