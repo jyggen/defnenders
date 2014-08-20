@@ -34,6 +34,8 @@ class WebController
 
             if ($me === false) {
                 $registerNotice = true;
+            } else {
+                $app['me_info'] = ['nickname' => $me['nickname'], 'specialization_id' => $me['specialization_id']];
             }
         }
 
