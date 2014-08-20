@@ -38,7 +38,7 @@
                       <li class="dropdown-header">No notifications.</li>
                     {% else %}
                       {% for notification in app["notifications.me"] %}
-                        <li><a href="{{ app.path('markNotificationAsRead', {notificationId: notification.id}) }}" title="Mark as read.">{{ notification.body|raw }}</a></li>
+                        <li><a href="{{ app.path('markNotificationAsRead', {notificationId: notification.id}) }}" title="Mark as read.">{{ notification.body }}</a></li>
                         <li class="dropdown-header text-right">
                           <time class="timeago" datetime="{{ notification.created_at|date(constant('DATE_ISO8601')) }}">{{ notification.created_at|date('F j, Y') }}</time>
                         </li>

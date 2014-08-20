@@ -14,13 +14,22 @@
     {% endif %}
 
     <ul class="nav nav-tabs" role="tablist">
+      <li><a href="#armors" role="tab" data-toggle="tab">Armor Types</a></li>
       <li class="active"><a href="#classes" role="tab" data-toggle="tab">Classes</a></li>
       <li><a href="#roles" role="tab" data-toggle="tab">Roles</a></li>
       <li><a href="#tokens" role="tab" data-toggle="tab">Tokens</a></li>
-      <li><a href="#armors" role="tab" data-toggle="tab">Armor Types</a></li>
     </ul>
     <br>
     <div class="tab-content">
+        <div class="tab-pane" id="armors">
+            {% for row in armors|batch(3) %}
+                <div class="row">
+                    {% for title, players in row %}
+                        {% include 'box.twig' %}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
         <div class="tab-pane active" id="classes">
             {% for row in classes|batch(3) %}
                 <div class="row">
@@ -41,15 +50,6 @@
         </div>
         <div class="tab-pane" id="tokens">
             {% for row in tokens|batch(3) %}
-                <div class="row">
-                    {% for title, players in row %}
-                        {% include 'box.twig' %}
-                    {% endfor %}
-                </div>
-            {% endfor %}
-        </div>
-        <div class="tab-pane" id="armors">
-            {% for row in armors|batch(3) %}
                 <div class="row">
                     {% for title, players in row %}
                         {% include 'box.twig' %}
