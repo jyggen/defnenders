@@ -1,0 +1,15 @@
+<div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">{{ title }} ({{ players|length }})</div>
+      <div class="panel-body">
+        <dl class="dl-horizontal">
+            {% for player in players %}
+                <dt>{{ player.name }}</dt>
+                <dd><span class="tooltipit" data-toggle="tooltip" data-placement="right" title="{{ player.nickname }}">{{ player.spec }} {{ player.class }}</span></dd>
+            {% else %}
+                <em>Currently empty.</em>
+            {% endfor %}
+        </dl>
+      </div>
+    </div>
+</div>

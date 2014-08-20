@@ -1,0 +1,22 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Defnenders\\": "src/"
+        },
+        "files": [
+            "functions.php"
+        ]
+    },
+    "require": {
+        "aura/sql": "~2.0",
+        "aura/sqlquery": "~2.0",
+        "facebook/php-sdk-v4": "4.0.*",
+        "filp/whoops": "~1.0",
+        "igorw/config-service-provider": "~1.2",
+        "jamesmoss/toml": "~1.0",
+        "monolog/monolog": "~1.0",
+        "silex/silex": "~1.0",
+        "tedivm/stash": "0.12.*",
+        "twig/twig": "~1.0"
+    }
+}

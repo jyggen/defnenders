@@ -1,0 +1,51 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+    {% for message in app.session.getFlashBag.get('error') %}
+        <div class="alert alert-danger" role="alert"><strong>Oh snap!</strong> {{ message }}</div>
+    {% endfor %}
+
+    {% if registerNotice %}
+        <div class="alert alert-info" role="alert"><strong>Heads up!</strong> You haven't registered a character yet!</div>
+    {% endif %}
+
+    {% if not app.is_logged_in %}
+        <div class="alert alert-info" role="alert"><strong>Heads up!</strong> In order to add yourself to this list you need to log in above!</div>
+    {% endif %}
+
+    <div class="page-header"><h2 id="classes">Class Distribution <small>or what will Oskar roll this time?</small></h2></div>
+    {% for row in classes|batch(3) %}
+        <div class="row">
+            {% for title, players in row %}
+                {% include 'box.twig' %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div class="page-header"><h2 id="roles">Role Check <small>or what will we lack this time?</small></h2></div>
+    {% for row in roles|batch(3) %}
+        <div class="row">
+            {% for title, players in row %}
+                {% include 'box.twig' %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div class="page-header"><h2 id="tokens">Token Distribution <small>or who will steal Olle's shoulders this time?</small></h2></div>
+    {% for row in tokens|batch(3) %}
+        <div class="row">
+            {% for title, players in row %}
+                {% include 'box.twig' %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div class="page-header"><h2 id="armors">Armor Type Distribution <small>or can Erica need it for transmog?</small></h2></div>
+    {% for row in armors|batch(3) %}
+        <div class="row">
+            {% for title, players in row %}
+                {% include 'box.twig' %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

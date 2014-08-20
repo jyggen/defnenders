@@ -1,0 +1,118 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Dyslectic Defnenders</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <style>#content { padding-top: 80px; } dd span { border-bottom: 1px dotted #aaa; cursor: pointer; }</style>
+    </head>
+    <body data-spy="scroll" data-target=".navbar-spy">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{{ app.path('home') }}">Dyslectic Defnenders</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <div class="navbar-spy">
+                <ul class="nav navbar-nav">
+                  <li><a href="#classes" class="active">Classes</a></li>
+                  <li><a href="#roles">Roles</a></li>
+                  <li><a href="#tokens">Tokens</a></li>
+                  <li><a href="#armors">Armor Types</a></li>
+                </ul>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                {% if app.is_logged_in %}
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notifications {% if app["notifications.me"] is not empty %}<span class="badge">{{ app["notifications.me"]|length }}</span> {% endif %}<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                    {% if app["notifications.me"] is empty %}
+                      <li class="dropdown-header">No notifications.</li>
+                    {% else %}
+                      {% for notification in app["notifications.me"] %}
+                        <li><a href="/wod/notifications/{{ notification.id }}" title="Mark as read.">{{ notification.body|raw }}</a></li>
+                        <li class="dropdown-header text-right">
+                          <time class="timeago" datetime="{{ notification.created_at|date(constant('DATE_ISO8601')) }}">{{ notification.created_at|date('F j, Y') }}</time>
+                        </li>
+                        <li class="divider"></li>
+                      {% endfor %}
+                      <li class="text-right"><a href="{{ app.path('markAllNotificationsAsRead') }}">Mark all as read.</a></li>
+                    {% endif %}
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ app.user_info.name }} <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="javascript:void(0)" data-toggle="modal" data-target="#character">My Character</a></li>
+                      <li class="divider"></li>
+                      <li><a href="{{ app.path('logout') }}">Log Out</a></li>
+                    </ul>
+                  </li>
+                {% else %}
+                <li><a href="{{ app.login_url }}">Log in with Facebook</a></li>
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div id="content">
+          <div class="container">
+            {% block content %}{% endblock %}
+          </div>
+        </div>
+        <footer role="contentinfo">
+          <div class="container">
+            <hr>
+            <p class="text-center">Developed with love by <a href="http://jyggen.com/" target="_blank">jyggen</a> ({{ app.stats }}).</p>
+          </div>
+        </footer>
+        <div class="modal fade" id="character" tabindex="-1" role="dialog" aria-labelledby="characterLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="characterLabel">My Character</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form-inline" role="form" action="{{ app.path('character') }}" method="POST">
+                  <div class="form-group">
+                    I'm planning to play <label class="sr-only" for="specIdInput">specialization</label>
+                    <select id="specIdInput" class="form-control" name="spec_id">
+                      {% for class, specs in specializations %}
+                        <optgroup label="{{ class }}">
+                          {% for spec in specs %}
+                            <option value="{{ spec.id }}" {% if spec.id == app.me_info.specialization_id %}selected{% endif %}>{{ spec.name }}</option>
+                          {% endfor %}
+                        </optgroup>
+                      {% endfor %}
+                    </select> on <label class="sr-only" for="characterNameInput">character name</label>
+                    <input id="specIdInput" type="text" class="form-control" name="nickname" placeholder="character name" value="{{ app.me_info.nickname }}">.
+                  </div>
+                  <br><br>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.4.0/jquery.timeago.min.js"></script>
+        <script>
+        $(function () {
+          $('.tooltipit').tooltip();
+          $('.timeago').timeago();
+        });
+        </script>
+    </body>
+</html>

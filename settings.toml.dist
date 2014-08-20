@@ -1,0 +1,24 @@
+debug = false
+
+[cache]
+namespace = ""
+host      = ""
+path      = "%base_dir%/cache"
+port      = 6379
+
+[database]
+hostname = ""
+username = ""
+password = ""
+database = ""
+
+[facebook]
+id     = ""
+secret = ""
+
+[log]
+file  = "%base_dir%/application.log"
+level = 250
+
+[template]
+path = "%base_dir%/views"

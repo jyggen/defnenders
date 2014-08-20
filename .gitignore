@@ -1,0 +1,5 @@
+application.log
+coverage
+build
+vendor
+settings.toml
