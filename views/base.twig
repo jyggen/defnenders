@@ -38,7 +38,7 @@
                       <li class="dropdown-header">No notifications.</li>
                     {% else %}
                       {% for notification in app["notifications.me"] %}
-                        <li><a href="/wod/notifications/{{ notification.id }}" title="Mark as read.">{{ notification.body|raw }}</a></li>
+                        <li><a href="{{ app.path('markNotificationAsRead', {notificationId: notification.id}) }}" title="Mark as read.">{{ notification.body|raw }}</a></li>
                         <li class="dropdown-header text-right">
                           <time class="timeago" datetime="{{ notification.created_at|date(constant('DATE_ISO8601')) }}">{{ notification.created_at|date('F j, Y') }}</time>
                         </li>
@@ -71,7 +71,8 @@
         <footer role="contentinfo">
           <div class="container">
             <hr>
-            <p class="text-center">Developed with love by <a href="http://jyggen.com/" target="_blank">jyggen</a> ({{ app.stats }}).</p>
+            <p class="text-center">Version 0.2 developed with love by <a href="http://jyggen.com/" target="_blank">jyggen</a> ({{ app.stats }}).</p>
+            <p class="text-center">Licensed under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT license.</a> Source code available on <a href="https://github.com/jyggen/defnenders" target="_blank">GitHub</a>.</p>
           </div>
         </footer>
         <div class="modal fade" id="character" tabindex="-1" role="dialog" aria-labelledby="characterLabel" aria-hidden="true">
