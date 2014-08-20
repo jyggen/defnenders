@@ -1,5 +1,8 @@
 debug = false
 
+[application]
+name = ""
+
 [cache]
 namespace = ""
 host      = ""
