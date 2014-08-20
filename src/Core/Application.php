@@ -4,6 +4,7 @@ namespace Defnenders\Core;
 use Defnenders\Contract\CacheAwareInterface;
 use Defnenders\Contract\DatabaseAwareInterface;
 use Defnenders\Notifications\NotificationServiceProvider;
+use Defnenders\Users\UserServiceProvider;
 use ReflectionClass;
 use Silex\Application as SilexApplication;
 use Silex\Application\UrlGeneratorTrait;
@@ -16,6 +17,7 @@ class Application extends SilexApplication
     {
         parent::__construct();
         $this->register(new NotificationServiceProvider);
+        $this->register(new UserServiceProvider);
     }
 
     public function resolve($class, array $arguments = array())
