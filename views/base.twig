@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ app.name }}</title>
+        <title>{{ app.application.name }}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <style>#content { padding-top: 80px; } dd span { border-bottom: 1px dotted #aaa; cursor: pointer; }</style>
@@ -18,7 +18,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="{{ app.path('home') }}">Dyslectic Defnenders</a>
+              <a class="navbar-brand" href="{{ app.path('home') }}">{{ app.application.name }}</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <div class="navbar-spy">
