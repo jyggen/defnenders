@@ -79,7 +79,7 @@ $app->post('/character', function (Request $request) use ($app) {
     }
 
     $select = $app['pdo.query']->newSelect();
-    $query  = $select->cols(['*'])->from('specializations')->where('id = :spec_id')->limit(1)->bindValue('spec_id', $request->request->get('spec_id'));
+    $query  = $select->cols(['specializations.id, specializations.name as name, classes.name as class'])->from('specializations')->join('left', 'classes', 'classes.id = specializations.class_id')->where('specializations.id = :spec_id')->limit(1)->bindValue('spec_id', $request->request->get('spec_id'));
     $spec   = $app['pdo']->fetchOne($query->__toString(), $query->getBindValues());
 
     if ($spec === false) {
@@ -100,6 +100,7 @@ $app->post('/character', function (Request $request) use ($app) {
             'nickname'          => $request->request->get('nickname'),
         ]);
         $app['pdo']->perform($query->__toString(), $query->getBindValues());
+        $app['notifications.processor']->createForAllUsers($app['user_info']['name'].' signed up as '.$spec['name'].' '.$spec['class'].'.');
         return $app->redirect($app->path('home'));
     }
 
@@ -111,6 +112,7 @@ $app->post('/character', function (Request $request) use ($app) {
             'nickname'          => $request->request->get('nickname'),
         ])->where('id = :user_id')->bindValue('user_id', $app['user_info']['id']);
         $app['pdo']->perform($query->__toString(), $query->getBindValues());
+        $app['notifications.processor']->createForAllUsers($app['user_info']['name'].' changed to '.$spec['name'].' '.$spec['class'].'.');
     }
 
     return $app->redirect($app->path('home'));

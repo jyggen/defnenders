@@ -22,7 +22,7 @@ class NotificationServiceProvider implements ServiceProviderInterface
         };
 
         $app['notifications.processor'] = $app->share(function () use ($app) {
-            return $app->resolve('Defnenders\Notifications\NotificationProcessor');
+            return $app->resolve('Defnenders\Notifications\NotificationProcessor', [$app['users.repository']]);
         });
 
         $app['notifications.repository'] = $app->share(function () use ($app) {
